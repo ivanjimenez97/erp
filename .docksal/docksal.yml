@@ -1,0 +1,13 @@
+version: "2.1"
+# services:
+#   cli:
+#     environment:
+#       # These variables are passed from the host (including values in `docksal.env`/`docksal-local.env`)
+#       - GITLAB_TOKEN
+#       - SITESTACKER_CLI
+#   # Elastic Search
+#   elasticsearch:
+#     image: elasticsearch:1.7.6
+#     extends:
+#       file: ${HOME}/.docksal/stacks/services.yml
+#       service: elasticsearch

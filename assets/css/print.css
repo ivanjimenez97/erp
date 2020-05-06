@@ -1,0 +1,273 @@
+/**
+ * Print stylesheet for yourwebsite.com
+* @version         1.0
+* @lastmodified    16.06.2016
+*/
+
+@media print {
+	/* Setting content width, unsetting floats and margins */
+	/* Attention: the classes and IDs vary from theme to theme. Thus, set own classes here */
+	#content,#page {
+	width: 100%; 
+	margin: 0; 
+	float: none;
+	}
+
+	/** Setting margins */       
+	@page { margin: 2cm }
+
+	/* Or: */
+	@page :left {
+	margin: 1cm;
+	}
+
+	@page :right {
+	margin: 1cm;
+	}
+
+	/* The first page of a print can be manipulated as well */
+	@page :first {
+	  margin: 1cm 2cm;
+	}
+
+	/* Set font to 16px/13pt, set background to white and font to black.*/
+	/* This saves ink */
+	body {
+	font: 13pt 'arial';
+	line-height: 1.3;
+	background: #fff !important;
+	color: #000;
+	}
+
+	h1 {
+	font-size: 24pt;
+	}
+
+	h2, h3, h4 {
+	font-size: 14pt;
+	margin-top: 25px;
+	}
+
+	body #wrapper ul{
+		display: none;
+	}
+/*Titulo de la vista de edicion*/
+/*ocultamos el titulo que dice editar cotizacion*/
+	body #wrapper #content-wrapper div h4{
+		text-align: center;
+		display: none;
+	}
+	/*mostramos el titulo que ira en la hoja a imprimir*/
+	body #wrapper #content-wrapper div #titleprint{
+		display: block;
+		text-align: center;
+	}
+
+	#encabezado img{
+		display: block;
+	}
+	/*mostrando la fecha y el folio de la cotizacion debajo del titulo*/
+	#box{
+		display: flex;
+	}
+/*Formulario de edicion*/
+/*configurando el ancho de los divs de los inputs y labels*/
+body #wrapper #content-wrapper form{
+	margin-top: 25px;
+}
+/*Se le aplican bordes a los divs con la siguiente clase*/
+body #wrapper #content-wrapper form .clientinf{
+	border:1px solid #D6D6DE;
+}
+/*Se le aplican bordes a los lados derechos a los divs con la siguiente clase*/
+body #wrapper #content-wrapper form .subclientinf{
+	border-right: 1px solid #D6D6DE;
+}
+
+#content-wrapper .form-group{
+	margin: 0;
+}
+
+/*Aplicando un borde en la parte de abajo de los labels*/
+/*Configuracion de los label e inputs*/
+body #wrapper #content-wrapper form div div{
+	
+	font-size: 13pt;	
+}
+body #wrapper #content-wrapper form div div select, label{
+	display: inline-block;
+}
+body #wrapper #content-wrapper form div #cajaclientes2 label{
+	width: 100%;
+}
+/*quitando bordes de los inputs del select del cliente y asignandole 
+un ancho dentro de su div*/
+body #wrapper #content-wrapper form div div select{
+	border:none;
+	width: 100%;
+	font-size: 13pt;
+}
+/*se ponen de los inputs a lado de los labels en una sola linea*/
+body #wrapper #content-wrapper form div textarea{
+	border: none;
+	font-size: 12pt;
+	overflow:hidden;
+	resize: none;
+	text-align: justify;
+}
+/*quitando bordes de los inputs del folio cliente, contacto y telefono*/
+body #wrapper #content-wrapper form div div input{
+	border: none;
+	font-size: 13pt;
+	display: flex;
+}
+body #wrapper #content-wrapper form div div label{
+	border:none;
+	font-size: 13pt;
+	margin:0;
+	width: 100%;
+}
+/*Para desaparecer la primera y segunda columna del encabezado de la tabla*/
+body #wrapper #content-wrapper form div table thead tr th{
+	font-size: 15pt;
+	background: #C62006;
+}
+	body #wrapper #content-wrapper form div table thead tr th:first-child{
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table thead tr th:nth-child(3){
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table thead tr th:nth-child(5){
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table thead tr th:nth-child(6){
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td:nth-child(5){
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td:nth-child(6){
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table tfoot tr td:nth-child(5){
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table tfoot tr td:nth-child(6){
+		display: none;
+	}
+	
+	body #wrapper #content-wrapper form div table{
+		border:none;
+	}
+/*Para desaparecer la primera y segunda columna del cuerpo de la tabla*/
+	body #wrapper #content-wrapper form div table tbody tr td:first-child{
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td:nth-child(3){
+		display: none;
+	}
+	/*Para desaparecer la primera y segunda columna del pie de la tabla*/
+	body #wrapper #content-wrapper form div table tfoot tr td:first-child{
+		display: none;
+	}
+	body #wrapper #content-wrapper form div table tfoot tr td:nth-child(3){
+		display: none;
+	}
+	
+/*en esta arte del codigo se le dara un ancho a las columnas mostradas en el formato del pdf*/
+	body #wrapper #content-wrapper form div table thead tr th:nth-child(4){
+		width: 35%;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td:nth-child(4){
+		width: 35%;
+	}
+	body #wrapper #content-wrapper form div table tfoot tr td:nth-child(4){
+		width: 35%;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td:nth-child(7) div div span{
+		font-size: 13pt;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td:nth-child(8) input{
+		font-size: 13pt;
+	}
+		/*agrandando los signos de peso de la columna del total a pagar por producto*/
+	body #wrapper #content-wrapper form div table tbody tr td:last-child div div span{
+		font-size: 13pt;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td{
+		border: 1px solid #C5C5D4;
+		font-size: 13pt;
+	}
+	/*quitar bordes de los span e inputs que estan en la columnas de
+	precio unitario, cantidad y total*/
+	body #wrapper #content-wrapper form div table tbody tr td div div span{
+		border: none;
+	}
+	body #wrapper #content-wrapper form div table tbody tr td input{
+		border: none;
+	}
+	/*para quitar las lineas Horizontales del a tabla*/
+	body #wrapper #content-wrapper form div table tbody .tfoot td{
+		border: none;
+	}
+	/*esta parte es para poner cuadros en cada elemento del tbody
+	pero del tfoot ya que esos no tenian casillas*/
+	body #wrapper #content-wrapper form div table tbody .tfoot td:nth-child(8){
+		border: 1px solid #D6D6DE;
+		font-size: 13pt;
+		text-align: center;	
+	}
+	body #wrapper #content-wrapper form div table tbody .tfoot td:nth-child(9){
+		border: 1px solid #D6D6DE;
+		font-size: 13pt;
+		text-align: center;	
+	}
+
+	body #wrapper #content-wrapper form div .cotizacionesList tfoot tr td:last-child{
+		border: 1px solid #D6D6DE;
+	}
+	
+	#content-wrapper form div table tfoot tr td:last-child div{
+		text-align: right;
+	}
+	/*agrandando los signos de peso del subtotal, iva y total*/
+	body #wrapper #content-wrapper form div table tfoot tr td:last-child div div span{
+		font-size: 13pt;
+	}
+
+	/*quitar borde del subtotal, iva y total*/
+	body #wrapper #content-wrapper form div table tfoot tr td div div span{
+		border: none;
+	}
+	body #wrapper #content-wrapper form div table tfoot tr td div input{
+		border: none;
+	}
+	/*Quitar los botones de cancelar, editar e imprimir*/
+	body #wrapper #content-wrapper form div .botones {
+		display: none;
+	}
+	/*codigo para mostrar el nombre de la persona a firmar*/
+	body #wrapper #content-wrapper form div #firmaencargado{
+		display: block;
+		text-align: center;
+		margin: 100px;
+	}
+
+	body #wrapper #content-wrapper form div #direccionlogins{
+		width: 90%;
+		display: block;
+		text-align: right;
+		margin: 100px;
+		font-size: 10pt;
+
+	}
+/*Esto es para mostrar la direccion de logins que se agrego en el
+footer*/
+	#wrapper #content-wrapper footer div .description
+	{
+	display: block;
+	position: static;
+	}
+
+}

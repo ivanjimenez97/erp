@@ -1,0 +1,281 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Cotizaciones extends CI_Controller {
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model(array('productos_model', 'cotizaciones_model'));
+        $this->load->helper('url_helper');
+    }
+
+    public function index()
+    {
+        $this->load->helper(array('text'));
+
+
+        //pagination
+        $this->load->library('pagination');
+        $this->config->load('pagination', TRUE);
+        $config = $this->config->item('pagination');
+        $config['base_url'] = base_url().'cotizaciones/index';
+
+        $page = $this->uri->segment(3, 0);
+
+        $data['title'] = 'Lista de Cotizaciones realizadas';
+        $data['cotizaciones'] = $this->cotizaciones_model->getQuotesList($config['per_page'], $page);
+        $config['total_rows'] = $this->cotizaciones_model->getTotalRow();
+        $this->pagination->initialize($config);
+        $data['pagination'] = $this->pagination->create_links();
+        
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('cotizaciones/index', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function cart()
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Cotizacion';
+        //consulta de taxonomy
+        //$data['tax'] = $this->taxonomy_model->get_tax();
+        $data['clientes'] = $this->cotizaciones_model->getClientQuote();
+
+        if(!empty($_SESSION['productosCotizacion'])){
+            $data['productos'] = $this->productos_model->getProductCart($_SESSION['productosCotizacion']);
+            //d($data['productos']);
+            $data['aviso'] = '';
+            //var_dump($data['productos']);
+        }
+        else{
+            $data['productos'] = $this->productos_model->getProductCartEmpty();
+            $data['aviso'] = '<div class="alert alert-warning" role="alert">No se han encontrado productos.</div>';
+        } 
+        
+        $this->form_validation->set_rules('description', 'Description', 'required');
+        
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('templates/header', $data);
+            $this->load->view('cotizaciones/cart', $data);
+            $this->load->view('templates/footer');
+
+        }
+        else
+        {   
+            if(empty($_SESSION['productosCotizacion']))
+            {
+
+                $data['aviso'] = '<div class="alert alert-danger" role="alert">No hay productos agregados a la Cotizacion.</div>';
+                $this->load->view('templates/header', $data);
+                $this->load->view('cotizaciones/cart', $data);
+                $this->load->view('templates/footer');
+            }
+            else
+            {
+                $this->cotizaciones_model->saveQuote();
+                $_SESSION['productosCotizacion'] = [];
+                $this->load->view('templates/header', $data);
+                $this->load->view('cotizaciones/success');
+                $this->load->view('templates/footer'); 
+            }
+            
+        }
+    }
+
+    public function edit($quote_id)
+    {
+        $this->load->helper('form');
+        $this->load->library('form_validation');
+
+        $data['title'] = 'Editar Cotizacion';
+        $data['titleprint'] = 'Logins Departamento de Transacciones';
+        $data['firmaencargado'] = 'Jose Alfredo Hernández Miranda';
+        $data['clientes'] = $this->cotizaciones_model->getClientQuote();
+
+        $data['cotizacion'] = $this->cotizaciones_model->getQuoteEdit($quote_id);
+
+        $data['productos'] = $this->cotizaciones_model->getProductEdit($quote_id);
+        //d($data['cotizacion']);
+        $data['clientarea'] = $this->cotizaciones_model->getClientAreaQuoteEdit($quote_id);
+
+        
+        $this->form_validation->set_rules('description', 'Description', 'required');
+
+        if ($this->form_validation->run() === FALSE)
+        {
+            $this->load->view('templates/header', $data);
+            $this->load->view('cotizaciones/edit', $data);
+            $this->load->view('templates/footer');
+
+        }
+        else
+        {
+            $id = $this->input->post('cid');
+            if($id)
+            {
+                $quote_id = $this->uri->segment(3);
+                $quote_id = $id; 
+            }
+            $this->cotizaciones_model->editQuote($quote_id);
+            $this->load->view('templates/header', $data);
+            $this->load->view('cotizaciones/successEdit');
+            $this->load->view('templates/footer');
+        }
+    }
+
+    public function delete($quote_id)
+    {
+        $this->load->helper(array('form', 'url'));
+        $data['cotizacion'] = $this->cotizaciones_model->getQuoteDelete($quote_id);
+            
+        $this->load->view('templates/header', $data);
+        $this->load->view('cotizaciones/delete', $data);
+        $this->load->view('templates/footer');
+
+        $id = $this->input->post('cid');       
+        
+        if ($id) 
+        {
+            $quote_id = $this->uri->segment(3);
+            $quote_id = $id;
+            $this->cotizaciones_model->deleteQuote($quote_id);
+            redirect(base_url().'cotizaciones/index');
+        }
+    }
+
+    public function addToCart()
+    {
+
+        $idproducto = $this->input->get('idproducto');
+        if($this->input->get('idproducto'))
+        {
+            
+
+            if(!in_array($idproducto, $_SESSION['productosCotizacion']))
+            {
+                $_SESSION['productosCotizacion'] [] = $idproducto;
+            }
+
+            echo count($_SESSION['productosCotizacion']); 
+        }
+
+
+
+    }
+
+    /*Este Fragmento de código sirve para quitar todos los productos
+    de una cotización que aun no ha sido guardada.*/
+    public function cleanCart()
+    {
+        
+        $_SESSION['productosCotizacion'] = [];
+        redirect(base_url().'productos/index');
+        
+    }
+
+    /*Fragmento de Codigo para borrar un articulo de la cotizacion
+    en proceso.*/
+    public function deleteAProductFromCart()
+    {
+        $idproducto = $this->input->get('idproducto');
+        
+        if($this->input->get('idproducto'))
+        {
+
+            foreach ($_SESSION['productosCotizacion'] as $product => $elements)
+            {
+                if($_SESSION['productosCotizacion'][$product] == $idproducto)
+                {
+                unset($_SESSION['productosCotizacion'][$product]);
+                
+                }   
+            }
+        }
+        
+    }
+
+/*Fragmento de Codigo para borrar un articulo mientras se edita una
+cotización.*/
+    public function deleteAProductFromCartSaved()
+    {
+        $itemq_id = $this->input->post('itemq_id');
+        
+        $this->cotizaciones_model->deleteItemFromQuote($itemq_id);        
+    }
+
+/*Fragmento de código para obtener el id del cliente seleccionado
+en la cotizacion que esta en curso.*/
+    public function getClientId()
+    {
+        $output = '';
+        $client = '';
+        if($this->input->post('client'))
+        {
+            $client = $this->input->post('client');
+        }
+        $data = $this->cotizaciones_model->getClientDetails($client);
+
+        if($data->num_rows() > 0)
+        {
+            foreach ($data->result() as $inf) {
+                $output .= '
+                <div class="clientinf form-group row">
+                    <div class="subclientinf col-6">
+                        <label for="contacto" class="col-form-label">Contacto:</label>
+                        <input type="text" class="form-control form-control-sm" id="contacto" name="contacto" value="'.$inf->contact.'"Disabled />
+                    </div>
+                    
+                    <div class="subclientinf col-6">
+                        <label for="telefono" class="col-form-label">Telefono:</label>
+                        <input type="number" class="form-control form-control-sm" name="telefono" id="telefono" value="'.$inf->tel.'" Disabled />
+                    </div>
+                </div>
+                <div class="clientinf form-group row col-6">
+                    
+                        <label for="direccion" class="col-form-label">Dirección:</label>
+                        <input type="text" class="form-control form-control-sm" id="direccion" name="direccion" value="'.$inf->direccion.', Colonia: '.$inf->col.', CP: '.$inf->cp.'." Disabled />
+                    
+                    
+                </div>
+
+                ';
+
+            }
+            
+        }
+        else
+        {
+            $output .= '
+                
+                    <div class="alert alert-primary" role="alert">Aun no se ha seleccionado un cliente.</div>
+                       
+            ';
+        }
+        echo $output;
+    }
+
+    function areaCliente()
+    {
+        //$client = '';
+        if($this->input->post('client'))
+        {
+            echo $this->cotizaciones_model->getClientAreaQuote($this->input->post('client'));
+        }
+
+    }
+
+    function clientquotenotice(){
+
+        $aviso = '';
+        $client = '';
+        if ($this->input->post('client')) {
+            
+        }
+    }   
+
+}

@@ -1,0 +1,244 @@
+/*Ancho de la tabla*/
+.table{
+	width: 100%;
+}
+/*Tamaño de las letras de los titulos de cada columna*/
+.table thead tr th{	
+	font-size: 14px;
+}
+/*Tamaño de las letras del body de la tabla*/
+.table tbody tr th{
+	font-size: 12px;
+}
+/*Asignacion de la anchura de cada columna*/
+.table tbody tr th:first-child{
+	width: 15%;
+}
+.table tbody tr th:nth-child(2){
+	width: 10%;
+}
+.table tbody tr th:nth-child(3){
+	width: 27%;
+}
+.table tbody tr th:nth-child(4){
+	width: 11.5%;
+}
+.table tbody tr th:nth-child(5){
+	width: 11.5%;
+}
+.table tbody tr th:nth-child(6){
+	width: 10%;
+}
+.table tbody tr th:last-child{
+	width: 15%;
+}
+/*Se le asigna una anchura del 100% a la imagen que
+esta dentro del th para que ocupe todo el espacio*/
+.table tbody tr th img{
+	width: 100%;
+}
+/*Se configuran los botones para que se muestren en 
+una sola linea y no este uno arriba de otro*/
+.table tbody tr th div{
+	display: inline-block;
+}
+/*Se configuran los botones para que se muestren en 
+una sola linea y no este uno arriba de otro*/
+.table tbody tr td div{
+	display: inline-block;
+}
+
+/*Tamaño de las letras del body de la tabla*/
+.table tbody tr td{
+	font-size: 12px;
+}
+
+/*Modulo de Taxonomía*/
+.table-taxonomy tbody tr th:first-child{
+	width: 25%;
+}
+.table-taxonomy tbody tr th:nth-child(2){
+	width: 50%;
+}
+.table-taxonomy tbody tr th:last-child{
+	width: 25%;
+}
+
+/*Esta parte del codigo funciona solo en las vistas de cart.php
+y en edit.php*/
+/*Imagen del encabezado de la cotizacion*/
+#encabezado img{
+	width: 100%;
+	display: none;
+}
+/*Estilo de la tabla de Cotizaciones*/
+div #titleprint{
+	display:none;
+}
+#box{
+	display: none;
+}
+form .clientesinf2
+{
+	display: inline-block;
+}
+
+div #firmaencargado{
+	display: none;
+}
+
+div #direccionlogins{
+	display: none;
+}
+.cotizacionesList thead tr th{
+	font-size: 11px;	
+}
+.cotizacionesList tbody tr td:nth-child(7){
+	text-align: center;
+}
+.cotizacionesList tbody tr td{
+	font-size: 10px;
+}
+.cotizacionesList tbody tr td:first-child{
+	width: 5%;
+	
+}
+.cotizacionesList tbody tr td:nth-child(2){
+	width: 5%;
+	text-align: center;
+}
+.cotizacionesList tbody tr td:nth-child(3){
+	width: 12.5%;
+}
+.cotizacionesList tbody tr td:nth-child(4){
+	width: 20%;
+	
+}
+.cotizacionesList tbody tr td:nth-child(5){
+	width: 5%;
+}
+
+.cotizacionesList tbody tr td:nth-child(5) label{
+	width: 5%;
+}
+.cotizacionesList tbody tr td:nth-child(6){
+	width: 11%;
+	
+}
+.cotizacionesList tbody tr td:nth-child(6) span{
+	font-size: 10px;
+}
+.cotizacionesList tbody tr td:nth-child(6) input{
+	font-size: 10px;
+	
+}
+.cotizacionesList tbody tr td:nth-child(7){
+	width: 12.5%;
+	
+}
+
+.cotizacionesList tbody tr td:nth-child(8){
+	width: 10%;
+}
+
+.cotizacionesList tbody tr td:nth-child(7) span{
+	font-size: 10px;
+}
+.cotizacionesList tbody tr td:nth-child(7) input{
+	font-size: 10px;
+	
+}
+.cotizacionesList tbody tr td:nth-child(8){
+	width: 9%;
+}
+
+.cotizacionesList tbody tr td:nth-child(8) input{
+	font-size: 10px;
+	text-align: center;
+}
+
+.cotizacionesList tbody tr td:last-child{
+	width: 14%;
+}
+.cotizacionesList tbody tr td:last-child span{
+	font-size: 10px;
+}
+
+.cotizacionesList tbody tr td:last-child input{
+	font-size: 10px;
+}
+/*font-size del pie de la tabla*/
+.cotizacionesList tfoot tr td:nth-child(8)
+{
+	font-size: 10px;
+}
+.cotizacionesList tfoot tr td:nth-child(8) span{
+	font-size: 10px;
+}
+.cotizacionesList tfoot tr td:nth-child(8) input{
+	font-size: 10px;
+}
+.cotizacionesList tfoot tr td:last-child div{
+	text-align: right;
+}
+.cotizacionesList tfoot tr td:last-child span{
+	font-size: 10px;
+}
+.cotizacionesList tfoot tr td:last-child input{
+	font-size: 10px;
+}
+.navbar-nav .nav-item .nav-link .badge{
+	margin-left: 0px;
+}
+
+
+/*Esta parte es para darle estilos a la lista de los registros de 
+las cotizaciones osea el index.php de cotizaciones*/
+
+/*Tamaño de las letras del head de la tabla*/
+.indexlist thead tr th{
+	font-size: 12px;
+}
+
+/*Tamaño de las letras del body de la tabla*/
+.indexlist tbody tr td{
+	font-size: 12px;
+}
+/*Asignacion de la anchura de cada columna*/
+.indexlist tbody tr td:first-child{
+	width: 25%;
+}
+.indexlist tbody tr td:nth-child(2){
+	width: 33%;
+}
+.indexlist tbody tr td:nth-child(3){
+	width: 12%;
+}
+.indexlist tbody tr td:nth-child(3) div div span{
+	border:none;
+	background: none;
+	font-size: 12px;
+	color: black;
+	margin: 0;
+	padding-right: 0;
+}
+.indexlist tbody tr td:nth-child(3) div input{
+	border:none;
+	background: none;
+	font-size: 12px;
+	color: black;
+}
+
+.indexlist tbody tr td:nth-child(4){
+	width: 15%;
+	padding: 12px;
+}
+.indexlist tbody tr td:last-child{
+	width: 15%;
+}
+/*Esto es para ocultar la direccion de logins que se agrego en el
+footer*/
+	#wrapper #content-wrapper footer div .description
+	{
+	display: none;
+	}
