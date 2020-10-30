@@ -126,7 +126,7 @@
 	<div class="form-group row">
 	    	<input type="hidden" name="pid" id="pid" value="<?php echo $product['product_id']; ?>" />
 		<div class="col-4">
-	    	<a class="btn btn-link" href="<?php echo base_url('conceptos/'); ?>">Cancelar</a>
+	    	<a class="btn btn-link" href="<?php echo base_url('productos/'); ?>">Cancelar</a>
 		</div>
 		<div class="col">
 	    	<input type="submit" name="edit" value="Editar" class="btn btn-success" />
